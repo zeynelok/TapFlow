@@ -4,11 +4,12 @@ public class ApiKeyMiddleware
 {
     private readonly RequestDelegate _next;
     private const string APIKEYNAME = "X-API-Key";
-    private const string APIKEY = "tapflow-secret-key-2026"; 
+    private readonly string APIKEY = ""; 
     
-    public ApiKeyMiddleware(RequestDelegate next)
+    public ApiKeyMiddleware(RequestDelegate next, IConfiguration _configuration)
     {
         _next = next;
+        APIKEY = Environment.GetEnvironmentVariable("secret-key");
     }
 
     public async Task InvokeAsync(HttpContext context)
